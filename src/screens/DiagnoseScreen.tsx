@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Image, Alert, TouchableOpacity } from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 import { useImagePicker } from '../hooks/useImagePicker';
 import { useTranslation } from '../hooks/useTranslation';
+import { useThemeColors } from '../hooks/useThemeColors';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Loading } from '../components/Loading';
@@ -18,6 +19,7 @@ import { router } from 'expo-router';
 export const DiagnoseScreen: React.FC = () => {
   const { imageUri, pickImage, takePhoto, clearImage } = useImagePicker();
   const { t } = useTranslation();
+  const colors = useThemeColors();
   
   const [diagnosing, setDiagnosing] = useState(false);
   const [result, setResult] = useState<DiagnosisResult | null>(null);
@@ -55,14 +57,14 @@ export const DiagnoseScreen: React.FC = () => {
   }
 
   return (
-    <ScrollView className="flex-1 bg-gray-50">
+    <ScrollView style={{ backgroundColor: colors.background }} className="flex-1">
       <View className="px-6 py-8">
         {/* Header */}
         <View className="mb-6">
-          <Text className="text-3xl font-bold text-gray-900 mb-2">
+          <Text style={{ color: colors.text.primary }} className="text-3xl font-bold mb-2">
             {t('diagnose')}
           </Text>
-          <Text className="text-gray-600">
+          <Text style={{ color: colors.text.secondary }}>
             Upload or take a photo of your crop for AI-powered diagnosis
           </Text>
         </View>
@@ -86,8 +88,8 @@ export const DiagnoseScreen: React.FC = () => {
               </Card>
             ) : (
               <Card className="mb-6 items-center py-12">
-                <Ionicons name="image-outline" size={64} color="#9ca3af" />
-                <Text className="text-gray-500 mt-4">No image selected</Text>
+                <Ionicons name="image-outline" size={64} color={colors.text.secondary} />
+                <Text style={{ color: colors.text.secondary }} className="mt-4">No image selected</Text>
               </Card>
             )}
 
@@ -106,7 +108,7 @@ export const DiagnoseScreen: React.FC = () => {
                 onPress={pickImage}
                 variant="outline"
                 fullWidth
-                icon={<Ionicons name="images" size={20} color="#16a34a" />}
+                icon={<Ionicons name="images" size={20} color={colors.primary} />}
               />
             </View>
 
@@ -122,7 +124,7 @@ export const DiagnoseScreen: React.FC = () => {
           <>
             {/* Diagnosis Results */}
             <Card className="mb-6">
-              <Text className="text-2xl font-bold text-gray-900 mb-4">
+              <Text style={{ color: colors.text.primary }} className="text-2xl font-bold mb-4">
                 {t('diagnosisResults')}
               </Text>
 

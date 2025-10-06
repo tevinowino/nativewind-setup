@@ -1,5 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, Text, ActivityIndicator, View } from 'react-native';
+import { TouchableOpacity, Text, ActivityIndicator, View, ViewStyle, TextStyle } from 'react-native';
+import { useThemeColors } from '../hooks/useThemeColors';
 
 interface ButtonProps {
   title: string;
@@ -26,69 +27,83 @@ export const Button: React.FC<ButtonProps> = ({
   icon,
   fullWidth = false,
 }) => {
-  const getVariantStyles = () => {
+  const colors = useThemeColors();
+
+  const getVariantStyles = (): ViewStyle => {
     switch (variant) {
       case 'primary':
-        return 'bg-green-600 active:bg-green-700';
+        return { backgroundColor: colors.primary };
       case 'secondary':
-        return 'bg-gray-500 active:bg-gray-600';
+        return { backgroundColor: colors.text.secondary };
       case 'outline':
-        return 'bg-transparent border-2 border-green-600 active:bg-green-50';
+        return { 
+          backgroundColor: 'transparent', 
+          borderWidth: 2, 
+          borderColor: colors.primary 
+        };
       case 'danger':
-        return 'bg-red-600 active:bg-red-700';
+        return { backgroundColor: '#ef4444' };
       default:
-        return 'bg-green-600 active:bg-green-700';
+        return { backgroundColor: colors.primary };
     }
   };
 
-  const getTextStyles = () => {
-    const baseStyle = 'font-semibold';
-    const colorStyle = variant === 'outline' ? 'text-green-600' : 'text-white';
-    
+  const getTextColor = (): string => {
+    return variant === 'outline' ? colors.primary : '#ffffff';
+  };
+
+  const getSizeStyles = (): ViewStyle => {
     switch (size) {
       case 'sm':
-        return `${baseStyle} ${colorStyle} text-sm`;
+        return { paddingHorizontal: 16, paddingVertical: 8 };
       case 'lg':
-        return `${baseStyle} ${colorStyle} text-lg`;
+        return { paddingHorizontal: 32, paddingVertical: 16 };
       default:
-        return `${baseStyle} ${colorStyle} text-base`;
+        return { paddingHorizontal: 24, paddingVertical: 12 };
     }
   };
 
-  const getSizeStyles = () => {
+  const getTextSize = (): number => {
     switch (size) {
       case 'sm':
-        return 'px-4 py-2';
+        return 14;
       case 'lg':
-        return 'px-8 py-4';
+        return 18;
       default:
-        return 'px-6 py-3';
+        return 16;
     }
   };
 
   const isDisabled = disabled || loading;
+  const buttonStyle: ViewStyle = {
+    ...getVariantStyles(),
+    ...getSizeStyles(),
+    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: fullWidth ? '100%' : undefined,
+    opacity: isDisabled ? 0.5 : 1,
+  };
+
+  const textStyle: TextStyle = {
+    color: getTextColor(),
+    fontSize: getTextSize(),
+    fontWeight: '600',
+  };
 
   return (
     <TouchableOpacity
       onPress={onPress}
       disabled={isDisabled}
-      className={`
-        ${getVariantStyles()}
-        ${getSizeStyles()}
-        rounded-lg
-        flex-row
-        items-center
-        justify-center
-        ${fullWidth ? 'w-full' : ''}
-        ${isDisabled ? 'opacity-50' : ''}
-      `}
+      style={buttonStyle}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'outline' ? '#16a34a' : '#ffffff'} />
+        <ActivityIndicator color={getTextColor()} />
       ) : (
         <View className="flex-row items-center gap-2">
           {icon}
-          <Text className={getTextStyles()}>{title}</Text>
+          <Text style={textStyle}>{title}</Text>
         </View>
       )}
     </TouchableOpacity>

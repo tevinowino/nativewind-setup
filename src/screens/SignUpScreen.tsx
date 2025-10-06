@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { useTranslation } from '../hooks/useTranslation';
+import { useThemeColors } from '../hooks/useThemeColors';
 import { isValidEmail, isValidPassword } from '../utils/helpers';
 
 /**
@@ -15,6 +16,7 @@ import { isValidEmail, isValidPassword } from '../utils/helpers';
 export const SignUpScreen: React.FC = () => {
   const { signUp, signInWithGoogle } = useAuth();
   const { t } = useTranslation();
+  const colors = useThemeColors();
   
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -78,15 +80,15 @@ export const SignUpScreen: React.FC = () => {
   };
 
   return (
-    <ScrollView className="flex-1 bg-gray-50">
+    <ScrollView style={{ backgroundColor: colors.background }} className="flex-1">
       <View className="flex-1 px-6 pt-16 pb-8">
         {/* Header */}
         <View className="items-center mb-8">
-          <View className="bg-green-600 w-20 h-20 rounded-full items-center justify-center mb-4">
+          <View style={{ backgroundColor: colors.primary }} className="w-20 h-20 rounded-full items-center justify-center mb-4">
             <Ionicons name="leaf" size={40} color="#ffffff" />
           </View>
-          <Text className="text-3xl font-bold text-gray-900">Create Account</Text>
-          <Text className="text-gray-600 mt-2">Join Shamba Pal today</Text>
+          <Text style={{ color: colors.text.primary }} className="text-3xl font-bold">Create Account</Text>
+          <Text style={{ color: colors.text.secondary }} className="mt-2">Join Shamba Pal today</Text>
         </View>
 
         {/* Sign Up Form */}
@@ -150,9 +152,9 @@ export const SignUpScreen: React.FC = () => {
 
         {/* Divider */}
         <View className="flex-row items-center my-6">
-          <View className="flex-1 h-px bg-gray-300" />
-          <Text className="mx-4 text-gray-500">or</Text>
-          <View className="flex-1 h-px bg-gray-300" />
+          <View style={{ backgroundColor: colors.border }} className="flex-1 h-px" />
+          <Text style={{ color: colors.text.secondary }} className="mx-4">or</Text>
+          <View style={{ backgroundColor: colors.border }} className="flex-1 h-px" />
         </View>
 
         {/* Google Sign In */}
@@ -161,14 +163,14 @@ export const SignUpScreen: React.FC = () => {
           onPress={handleGoogleSignIn}
           variant="outline"
           fullWidth
-          icon={<Ionicons name="logo-google" size={20} color="#16a34a" />}
+          icon={<Ionicons name="logo-google" size={20} color={colors.primary} />}
         />
 
         {/* Login Link */}
         <View className="flex-row justify-center mt-6">
-          <Text className="text-gray-600">{t('alreadyHaveAccount')} </Text>
+          <Text style={{ color: colors.text.secondary }}>{t('alreadyHaveAccount')} </Text>
           <TouchableOpacity onPress={() => router.push('/(auth)/login')}>
-            <Text className="text-green-600 font-semibold">{t('login')}</Text>
+            <Text style={{ color: colors.primary }} className="font-semibold">{t('login')}</Text>
           </TouchableOpacity>
         </View>
       </View>

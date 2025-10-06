@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, RefreshControl } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../hooks/useTranslation';
+import { useThemeColors } from '../hooks/useThemeColors';
 import { useLocation } from '../hooks/useLocation';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
@@ -16,6 +17,7 @@ import { formatDate } from '../utils/helpers';
  */
 export const WeatherScreen: React.FC = () => {
   const { t } = useTranslation();
+  const colors = useThemeColors();
   const { location, requestLocation } = useLocation();
   
   const [weather, setWeather] = useState<WeatherData | null>(null);
@@ -69,13 +71,14 @@ export const WeatherScreen: React.FC = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-gray-50"
+      style={{ backgroundColor: colors.background }}
+      className="flex-1"
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#16a34a']} />
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[colors.primary]} />
       }
     >
       {/* Header */}
-      <View className="bg-gradient-to-b from-blue-500 to-blue-600 px-6 pt-12 pb-8">
+      <View style={{ backgroundColor: '#3b82f6' }} className="px-6 pt-12 pb-8">
         <Text className="text-white text-2xl font-bold mb-2">{t('weather')}</Text>
         <View className="flex-row items-center">
           <Ionicons name="location" size={16} color="#ffffff" />
@@ -88,13 +91,13 @@ export const WeatherScreen: React.FC = () => {
           <>
             {/* Current Weather */}
             <Card className="mb-6">
-              <Text className="text-gray-600 text-sm mb-2">{t('currentWeather')}</Text>
+              <Text style={{ color: colors.text.secondary }} className="text-sm mb-2">{t('currentWeather')}</Text>
               <View className="flex-row justify-between items-center">
                 <View>
-                  <Text className="text-5xl font-bold text-gray-900">
+                  <Text style={{ color: colors.text.primary }} className="text-5xl font-bold">
                     {weather.current.temperature}°C
                   </Text>
-                  <Text className="text-gray-600 text-lg mt-2">
+                  <Text style={{ color: colors.text.secondary }} className="text-lg mt-2">
                     {weather.current.condition}
                   </Text>
                 </View>
@@ -105,23 +108,23 @@ export const WeatherScreen: React.FC = () => {
                 />
               </View>
 
-              <View className="flex-row justify-between mt-6 pt-6 border-t border-gray-200">
+              <View style={{ borderTopColor: colors.border }} className="flex-row justify-between mt-6 pt-6 border-t">
                 <View className="items-center">
                   <Ionicons name="water" size={24} color="#3b82f6" />
-                  <Text className="text-gray-600 text-sm mt-1">
+                  <Text style={{ color: colors.text.secondary }} className="text-sm mt-1">
                     {t('humidity')}
                   </Text>
-                  <Text className="text-gray-900 font-semibold">
+                  <Text style={{ color: colors.text.primary }} className="font-semibold">
                     {weather.current.humidity}%
                   </Text>
                 </View>
                 
                 <View className="items-center">
                   <Ionicons name="speedometer" size={24} color="#3b82f6" />
-                  <Text className="text-gray-600 text-sm mt-1">
+                  <Text style={{ color: colors.text.secondary }} className="text-sm mt-1">
                     {t('windSpeed')}
                   </Text>
-                  <Text className="text-gray-900 font-semibold">
+                  <Text style={{ color: colors.text.primary }} className="font-semibold">
                     {weather.current.windSpeed} km/h
                   </Text>
                 </View>

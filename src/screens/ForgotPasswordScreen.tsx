@@ -6,6 +6,7 @@ import authService from '../services/authService';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { useTranslation } from '../hooks/useTranslation';
+import { useThemeColors } from '../hooks/useThemeColors';
 import { isValidEmail } from '../utils/helpers';
 
 /**
@@ -14,6 +15,7 @@ import { isValidEmail } from '../utils/helpers';
  */
 export const ForgotPasswordScreen: React.FC = () => {
   const { t } = useTranslation();
+  const colors = useThemeColors();
   
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -51,22 +53,22 @@ export const ForgotPasswordScreen: React.FC = () => {
   };
 
   return (
-    <ScrollView className="flex-1 bg-gray-50">
+    <ScrollView style={{ backgroundColor: colors.background }} className="flex-1">
       <View className="flex-1 px-6 pt-16 pb-8">
         {/* Back Button */}
         <TouchableOpacity
           onPress={() => router.back()}
           className="mb-8"
         >
-          <Ionicons name="arrow-back" size={24} color="#16a34a" />
+          <Ionicons name="arrow-back" size={24} color={colors.primary} />
         </TouchableOpacity>
 
         {/* Header */}
         <View className="mb-8">
-          <Text className="text-3xl font-bold text-gray-900 mb-2">
+          <Text style={{ color: colors.text.primary }} className="text-3xl font-bold mb-2">
             {t('resetPassword')}
           </Text>
-          <Text className="text-gray-600">
+          <Text style={{ color: colors.text.secondary }}>
             Enter your email address and we'll send you a link to reset your password.
           </Text>
         </View>
@@ -94,9 +96,9 @@ export const ForgotPasswordScreen: React.FC = () => {
 
         {/* Back to Login */}
         <View className="flex-row justify-center mt-6">
-          <Text className="text-gray-600">Remember your password? </Text>
+          <Text style={{ color: colors.text.secondary }}>Remember your password? </Text>
           <TouchableOpacity onPress={() => router.push('/(auth)/login')}>
-            <Text className="text-green-600 font-semibold">{t('login')}</Text>
+            <Text style={{ color: colors.primary }} className="font-semibold">{t('login')}</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -3,6 +3,7 @@ import { View, Text, ScrollView, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../hooks/useTranslation';
+import { useThemeColors } from '../hooks/useThemeColors';
 import { Card } from '../components/Card';
 import { Loading } from '../components/Loading';
 import productService from '../services/productService';
@@ -16,6 +17,7 @@ import { formatDate, formatCurrency } from '../utils/helpers';
 export const OrdersScreen: React.FC = () => {
   const { user } = useAuth();
   const { t } = useTranslation();
+  const colors = useThemeColors();
   
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
@@ -71,16 +73,16 @@ export const OrdersScreen: React.FC = () => {
   }
 
   return (
-    <View className="flex-1 bg-gray-50">
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
       {/* Header */}
-      <View className="bg-green-600 px-6 pt-12 pb-6">
-        <Text className="text-white text-2xl font-bold">{t('myOrders')}</Text>
+      <View style={{ backgroundColor: colors.headerBg }} className="px-6 pt-12 pb-6">
+        <Text style={{ color: colors.headerText }} className="text-2xl font-bold">{t('myOrders')}</Text>
       </View>
 
       {orders.length === 0 ? (
         <View className="flex-1 items-center justify-center px-6">
-          <Ionicons name="receipt-outline" size={64} color="#9ca3af" />
-          <Text className="text-gray-500 mt-4 text-center">
+          <Ionicons name="receipt-outline" size={64} color={colors.text.secondary} />
+          <Text style={{ color: colors.text.secondary }} className="mt-4 text-center">
             No orders yet. Start shopping in the marketplace!
           </Text>
         </View>
@@ -94,11 +96,11 @@ export const OrdersScreen: React.FC = () => {
               {/* Order Header */}
               <View className="flex-row justify-between items-start mb-4">
                 <View className="flex-1">
-                  <Text className="text-gray-500 text-sm">Order #{item.id}</Text>
-                  <Text className="text-gray-900 font-semibold text-lg mt-1">
+                  <Text style={{ color: colors.text.secondary }} className="text-sm">Order #{item.id}</Text>
+                  <Text style={{ color: colors.text.primary }} className="font-semibold text-lg mt-1">
                     {formatCurrency(item.totalAmount, 'KES')}
                   </Text>
-                  <Text className="text-gray-600 text-sm mt-1">
+                  <Text style={{ color: colors.text.secondary }} className="text-sm mt-1">
                     {formatDate(item.createdAt)}
                   </Text>
                 </View>
@@ -122,16 +124,16 @@ export const OrdersScreen: React.FC = () => {
               </View>
 
               {/* Order Items */}
-              <View className="border-t border-gray-200 pt-4">
+              <View style={{ borderTopColor: colors.border }} className="border-t pt-4">
                 {item.items.map((cartItem, index) => (
                   <View
                     key={index}
                     className="flex-row justify-between items-center mb-2"
                   >
-                    <Text className="text-gray-700 flex-1" numberOfLines={1}>
+                    <Text style={{ color: colors.text.primary }} className="flex-1" numberOfLines={1}>
                       {cartItem.product.name}
                     </Text>
-                    <Text className="text-gray-600 ml-2">
+                    <Text style={{ color: colors.text.secondary }} className="ml-2">
                       x{cartItem.quantity}
                     </Text>
                   </View>
@@ -139,16 +141,16 @@ export const OrdersScreen: React.FC = () => {
               </View>
 
               {/* Delivery Info */}
-              <View className="border-t border-gray-200 pt-4 mt-2">
+              <View style={{ borderTopColor: colors.border }} className="border-t pt-4 mt-2">
                 <View className="flex-row items-start">
-                  <Ionicons name="location" size={16} color="#6b7280" />
-                  <Text className="text-gray-600 text-sm ml-2 flex-1">
+                  <Ionicons name="location" size={16} color={colors.text.secondary} />
+                  <Text style={{ color: colors.text.secondary }} className="text-sm ml-2 flex-1">
                     {item.deliveryAddress}
                   </Text>
                 </View>
                 <View className="flex-row items-start mt-2">
-                  <Ionicons name="card" size={16} color="#6b7280" />
-                  <Text className="text-gray-600 text-sm ml-2">
+                  <Ionicons name="card" size={16} color={colors.text.secondary} />
+                  <Text style={{ color: colors.text.secondary }} className="text-sm ml-2">
                     {item.paymentMethod}
                   </Text>
                 </View>
