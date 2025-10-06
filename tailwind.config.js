@@ -1,22 +1,37 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
+  content: ["./app/**/*.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        primary: "#030014",
-        secondary: "#151312",
-        light: {
-          100: "#D6C7FF",
-          200: "#A8B5DB",
-          300: "#9CA4AB",
+        primary: {
+          DEFAULT: '#16a34a',
+          dark: '#22c55e',
         },
-        dark: {
-          100: "#221F3D",
-          200: "#0F0D23",
+        background: {
+          light: '#f9fafb',
+          dark: '#111827',
         },
-        accent: "#AB8BFF",
+        card: {
+          light: '#ffffff',
+          dark: '#1f2937',
+        },
+        text: {
+          primary: {
+            light: '#1f2937',
+            dark: '#f9fafb',
+          },
+          secondary: {
+            light: '#6b7280',
+            dark: '#9ca3af',
+          },
+        },
+        border: {
+          light: '#e5e7eb',
+          dark: '#374151',
+        },
       },
     },
   },

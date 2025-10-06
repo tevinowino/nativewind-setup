@@ -1,12 +1,14 @@
 import "./globals.css";
-import { Text, View } from "react-native";
- 
+import { View, ActivityIndicator } from 'react-native';
+
+/**
+ * Initial loading screen
+ * Navigation handled in _layout.tsx
+ */
 export default function Index() {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-xl font-bold text-blue-500">
-        Welcome to Nativewind!
-      </Text>
+    <View className="flex-1 items-center justify-center bg-green-600">
+      <ActivityIndicator size="large" color="#ffffff" />
     </View>
   );
 }
