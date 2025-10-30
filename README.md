@@ -1,112 +1,31 @@
-# 🌾 Shamba Pal - Your Farming Companion
+# React Native + NativeWind Boilerplate
 
-A comprehensive React Native Expo app designed for farmers, featuring AI-powered crop diagnosis, marketplace, weather forecasts, and more. Built with **SOLID architecture principles** and a beautiful green-themed UI.
+A minimal React Native boilerplate with Expo Router and NativeWind (TailwindCSS) pre-configured.
 
 ## 📱 Features
 
-### 🔐 Authentication
-- Email/Password sign up and login
-- Google Sign-In integration (placeholder)
-- Forgot password functionality
-- Persistent authentication across sessions
+- **Expo Router**: File-based routing
+- **NativeWind**: TailwindCSS for React Native
+- **TypeScript**: Type-safe development
+- **Two Pages**: Home and Explore
 
-### 🏠 Home Dashboard
-- Weather overview
-- Recent diagnosis results
-- Quick action buttons
-- Farming tips based on weather
-
-### 🔬 AI Crop Diagnosis
-- Upload or take photos of crops
-- AI-powered disease/pest detection (placeholder API)
-- Severity assessment and confidence scores
-- Actionable advice and treatment recommendations
-- Product recommendations linked to marketplace
-
-### 🛒 Marketplace
-- Browse agricultural products (seeds, fertilizers, pesticides, tools)
-- Category filtering
-- Product details with ratings
-- Shopping cart functionality
-- Order placement (mock checkout)
-
-### ☁️ Weather Forecast
-- Current weather conditions
-- 7-day forecast
-- Weather alerts and hazard warnings
-- Location-based weather data
-- Farming tips based on weather conditions
-
-### 👤 Profile Management
-- User profile display
-- Language toggle (English/Kiswahili)
-- Settings and preferences
-- Logout functionality
-
-### 📦 Orders
-- Order history
-- Order status tracking
-- Delivery information
-
-## 🏗️ Architecture
-
-This project follows **SOLID principles** with a well-structured folder organization:
+## 🏗️ Project Structure
 
 ```
-shambapal-react-native/
-├── app/                          # Expo Router navigation
-│   ├── (auth)/                   # Authentication screens
-│   │   ├── login.tsx
-│   │   ├── signup.tsx
-│   │   ├── forgot-password.tsx
-│   │   └── _layout.tsx
-│   ├── (tabs)/                   # Main app tabs
-│   │   ├── home.tsx
-│   │   ├── diagnose.tsx
-│   │   ├── marketplace.tsx
-│   │   ├── weather.tsx
-│   │   ├── profile.tsx
-│   │   ├── orders.tsx
-│   │   └── _layout.tsx
-│   ├── _layout.tsx               # Root layout with providers
-│   └── index.tsx                 # Entry point
-├── src/
-│   ├── components/               # Reusable UI components
-│   │   ├── Button.tsx
-│   │   ├── Input.tsx
-│   │   ├── Card.tsx
-│   │   ├── Loading.tsx
-│   │   └── ProductCard.tsx
-│   ├── screens/                  # Feature screens
-│   │   ├── LoginScreen.tsx
-│   │   ├── SignUpScreen.tsx
-│   │   ├── ForgotPasswordScreen.tsx
-│   │   ├── HomeScreen.tsx
-│   │   ├── DiagnoseScreen.tsx
-│   │   ├── MarketplaceScreen.tsx
-│   │   ├── WeatherScreen.tsx
-│   │   ├── ProfileScreen.tsx
-│   │   └── OrdersScreen.tsx
-│   ├── services/                 # API service layer
-│   │   ├── authService.ts
-│   │   ├── aiDiagnosisService.ts
-│   │   ├── productService.ts
-│   │   └── weatherService.ts
-│   ├── contexts/                 # React Context providers
-│   │   ├── AuthContext.tsx
-│   │   ├── ThemeContext.tsx
-│   │   └── CartContext.tsx
-│   ├── hooks/                    # Custom React hooks
-│   │   ├── useLocation.ts
-│   │   ├── useImagePicker.ts
-│   │   └── useTranslation.ts
-│   ├── utils/                    # Utility functions
-│   │   ├── constants.ts
-│   │   ├── helpers.ts
-│   │   └── translations.ts
-│   └── types/                    # TypeScript type definitions
-│       └── index.ts
-├── .env                          # Environment variables
+nativewind-setup/
+├── app/
+│   ├── (tabs)/
+│   │   ├── home.tsx          # Home page
+│   │   ├── explore.tsx       # Explore page
+│   │   └── _layout.tsx       # Tab navigation layout
+│   ├── _layout.tsx           # Root layout
+│   ├── index.tsx             # Entry point
+│   └── globals.css           # Global styles
+├── assets/                   # Images and fonts
+├── babel.config.js
+├── metro.config.js
+├── tailwind.config.js        # TailwindCSS configuration
+├── nativewind-env.d.ts       # NativeWind types
 └── package.json
 ```
 
@@ -120,127 +39,67 @@ shambapal-react-native/
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   cd shambapal-react-native
-   ```
-
-2. **Install dependencies**
+1. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **Configure environment variables**
-   
-   Update `.env` file with your API keys:
-   ```env
-   API_BASE_URL=https://api.shambapal.com
-   WEATHER_API_KEY=your_weather_api_key_here
-   WEATHER_API_URL=https://api.openweathermap.org/data/2.5
-   AI_DIAGNOSIS_API_URL=https://api.shambapal.com/ai/diagnose
-   PRODUCT_API_URL=https://api.shambapal.com/products
-   GOOGLE_CLIENT_ID=your_google_client_id_here
-   ```
-
-4. **Start the development server**
+2. **Start the development server**
    ```bash
    npm start
    ```
 
-5. **Run on your preferred platform**
+3. **Run on your preferred platform**
    - Press `a` for Android
    - Press `i` for iOS
    - Press `w` for Web
    - Scan QR code with Expo Go app
 
-## 🎨 Design System
+## 🎨 Using NativeWind
 
-### Color Theme
-The app uses a green color palette representing agriculture and growth:
-- **Primary**: `#16a34a` (Green 600)
-- **Secondary**: Various shades of green from 50 to 900
-- **Accent colors**: Success, Warning, Error, Info
+NativeWind allows you to use TailwindCSS classes directly in your React Native components:
 
-### Components
-All components are built with:
-- **NativeWind** (TailwindCSS for React Native)
-- Consistent spacing and typography
-- Responsive design
-- Accessibility considerations
+```tsx
+import { View, Text } from 'react-native';
 
-## 🔌 API Integration
-
-All services are currently using **mock data** with placeholder API calls. To integrate real APIs:
-
-1. **Authentication** (`src/services/authService.ts`)
-   - Replace mock responses with actual API calls
-   - Implement real Google Sign-In
-
-2. **AI Diagnosis** (`src/services/aiDiagnosisService.ts`)
-   - Connect to your AI model endpoint
-   - Handle image upload and processing
-
-3. **Products** (`src/services/productService.ts`)
-   - Connect to your product database/API
-   - Implement real payment processing
-
-4. **Weather** (`src/services/weatherService.ts`)
-   - Use OpenWeatherMap or similar service
-   - Add your API key to `.env`
-
-## 🌍 Internationalization
-
-The app supports:
-- **English** (default)
-- **Kiswahili**
-
-Add more languages in `src/utils/translations.ts`
+export default function Example() {
+  return (
+    <View className="flex-1 items-center justify-center bg-white">
+      <Text className="text-4xl font-bold text-blue-500">
+        Hello NativeWind!
+      </Text>
+    </View>
+  );
+}
+```
 
 ## 📦 Key Dependencies
 
 - **expo**: ~54.0.12
 - **expo-router**: ~6.0.10 (File-based routing)
-- **nativewind**: ^4.2.1 (TailwindCSS)
-- **expo-image-picker**: Image selection
-- **expo-location**: GPS location
-- **expo-secure-store**: Secure storage
-- **date-fns**: Date formatting
-- **@expo/vector-icons**: Icon library
+- **nativewind**: ^4.2.1 (TailwindCSS for React Native)
+- **tailwindcss**: ^3.4.18
+- **react-native**: 0.81.4
 
-## 🧪 Testing
+## 🧪 Scripts
 
 ```bash
+# Start development server
+npm start
+
+# Run on Android
+npm run android
+
+# Run on iOS
+npm run ios
+
+# Run on Web
+npm run web
+
 # Run linter
 npm run lint
 ```
 
-## 📱 Build for Production
-
-```bash
-# Build for Android
-npx expo build:android
-
-# Build for iOS
-npx expo build:ios
-```
-
-## 🤝 Contributing
-
-This project follows SOLID principles:
-- **S**ingle Responsibility: Each class/component has one job
-- **O**pen/Closed: Extensible through props, not modification
-- **L**iskov Substitution: Components are interchangeable
-- **I**nterface Segregation: Focused interfaces
-- **D**ependency Inversion: Depend on abstractions (contexts, services)
-
 ## 📄 License
 
 MIT License
-
-## 👨‍💻 Author
-
-Built with ❤️ for farmers
-
----
-
-**Note**: This app uses placeholder data and mock API calls. Replace with real backend services for production use.
