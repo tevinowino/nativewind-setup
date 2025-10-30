@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "ShambaPal",
-    "slug": "shambapal-app",
+    "name": "React Native Boilerplate",
+    "slug": "BoilerplateApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "shambapal",
+    "scheme": "boilerplate",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
